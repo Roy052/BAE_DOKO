@@ -5,19 +5,27 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     public float moveSpeed;
-    Rigidbody rb;
+    public ObstacleGenerator og;
+    public bool stop;
 
     private void Start()
     {
-        moveSpeed = 2;
-        rb = this.GetComponent<Rigidbody>();
-
-        
+        stop = false;
     }
 
     private void Update()
     {
-        this.transform.position += new Vector3(0, 0, moveSpeed * Time.deltaTime);
-        if (this.transform.position.z >= 13) Destroy(this.gameObject);
+        if(stop == false)
+        {
+            this.transform.position += new Vector3(0, 0, moveSpeed * Time.deltaTime);
+            moveSpeed += Time.deltaTime / 10;
+        }
+            
+
+        if (this.transform.position.z >= 13)
+        {
+            og.ObstacleDestroyed();
+            Destroy(this.gameObject);
+        }
     }
 }
