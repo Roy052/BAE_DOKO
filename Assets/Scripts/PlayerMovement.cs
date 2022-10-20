@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
 
     public KeyCode jumpkey = KeyCode.Space;
 
+    [SerializeField] MainSM mainSM;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -83,5 +85,13 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Cheese")
+        {
+            mainSM.CheeseGain(1);
+        }
     }
 }
