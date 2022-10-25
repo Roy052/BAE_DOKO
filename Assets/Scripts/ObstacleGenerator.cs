@@ -24,7 +24,7 @@ public class ObstacleGenerator : MonoBehaviour
         {
             timeCheck = 0;
             nextGenTime = 0.5f + Random.Range(0, 0.8f);
-            GameObject temp = Instantiate(obstaclePrefabs[nextObjectNum], new Vector3(Random.Range(-6.1f, 6.1f), 1, -10), Quaternion.identity);
+            GameObject temp = Instantiate(obstaclePrefabs[nextObjectNum], new Vector3(Random.Range(-6.1f, 6.1f), Random.Range(1, 3), -20), Quaternion.identity);
             obstacles.Add(temp);
             temp.GetComponent<Obstacle>().og = this;
             temp.GetComponent<Obstacle>().moveSpeed = moveSpeed;
