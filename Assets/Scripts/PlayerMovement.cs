@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public float airMultiplier;
     bool readyToJump = true;
 
-    public KeyCode jumpkey = KeyCode.Space;
+    string jumpkey = "space";
 
     [SerializeField] MainSM mainSM;
 
@@ -39,10 +39,23 @@ public class PlayerMovement : MonoBehaviour
         //Ground Check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, ground);
 
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalnput = Input.GetAxisRaw("Vertical");
+        if (Input.GetKey("a")) horizontalInput = -1;
+        else if(Input.GetKey("d")) horizontalInput = 1;
+
+        if (Input.GetKey("w")) verticalnput = 1;
+        else if (Input.GetKey("s")) verticalnput = -1;
+
+        if (Input.GetKeyUp("a") || Input.GetKeyUp("d")) horizontalInput = 0;
+
+        if (Input.GetKeyUp("w") || Input.GetKeyUp("s")) verticalnput = 0;
+
+        
+        //horizontalInput = Input.GetAxisRaw("Horizontal");
+        //verticalnput = Input.GetAxisRaw("Vertical");
 
         moveDirection = orientation.forward * verticalnput + orientation.right * horizontalInput;
+
+        if (Input.GetKeyDown("left shift")) rb.AddForce(moveDirection * 1000);
 
         SpeedControl();
 

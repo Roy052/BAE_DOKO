@@ -10,7 +10,11 @@ public class Obstacle : MonoBehaviour
     Rigidbody rb;
     RaycastHit hit;
 
-    public bool somethingHit;
+    bool grounded = false;
+    float obstacleHeight = 1;
+
+    public bool slowDown = false;
+    float slowDownValue = 1;
 
     private void Start()
     {
@@ -22,15 +26,18 @@ public class Obstacle : MonoBehaviour
     {
         if(stop == false)
         {
-            if(somethingHit == false && Physics.Raycast(transform.position, Vector3.down, out hit, 0.5f))
-            {
-                somethingHit = true;
-            }
-                
-            if(somethingHit)
-                rb.velocity = new Vector3(0, 0, moveSpeed);
+            if (slowDown == true)
+                slowDownValue = 0.1f;
             else
-                rb.velocity = new Vector3(0, -5, moveSpeed);
+                slowDownValue = 1;
+
+            //Ground Check
+            grounded = Physics.Raycast(transform.position, Vector3.down, obstacleHeight * 0.5f + 0.2f);
+
+            if (grounded)
+                rb.velocity = new Vector3(0, 0, slowDownValue * moveSpeed);
+            else
+                rb.velocity = new Vector3(0, -5, slowDownValue * moveSpeed);
             //this.transform.position += new Vector3(0, 0, moveSpeed * Time.deltaTime);
             Debug.DrawRay(transform.position, Vector3.down * 10, Color.yellow);
             moveSpeed += Time.deltaTime / 10;

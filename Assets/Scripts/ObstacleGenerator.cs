@@ -48,4 +48,20 @@ public class ObstacleGenerator : MonoBehaviour
             obstacle.GetComponent<Obstacle>().stop = true;
         }
     }
+
+    public void ObstacleSlowDown()
+    {
+        foreach (GameObject obstacle in obstacles)
+        {
+            obstacle.GetComponent<Obstacle>().slowDown = true;
+        }
+    }
+
+    public void ObstacleSlowUp()
+    {
+        foreach (GameObject obstacle in obstacles)
+        {
+            obstacle.GetComponent<Obstacle>().slowDown = false;
+        }
+    }
 }
