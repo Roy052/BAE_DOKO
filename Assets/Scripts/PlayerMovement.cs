@@ -37,13 +37,15 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         //Ground Check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, ground);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.01f, ground);
+        Debug.Log(grounded);
+        Debug.DrawRay(transform.position, Vector3.down * playerHeight * 0.7f, Color.yellow);
 
-        if (Input.GetKey("a")) horizontalInput = -1;
-        else if(Input.GetKey("d")) horizontalInput = 1;
+        if (Input.GetKey("a")) horizontalInput = 1;
+        else if(Input.GetKey("d")) horizontalInput = -1;
 
-        if (Input.GetKey("w")) verticalnput = 1;
-        else if (Input.GetKey("s")) verticalnput = -1;
+        if (Input.GetKey("w")) verticalnput = -1;
+        else if (Input.GetKey("s")) verticalnput = 1;
 
         if (Input.GetKeyUp("a") || Input.GetKeyUp("d")) horizontalInput = 0;
 
@@ -55,7 +57,11 @@ public class PlayerMovement : MonoBehaviour
 
         moveDirection = orientation.forward * verticalnput + orientation.right * horizontalInput;
 
-        if (Input.GetKeyDown("left shift")) rb.AddForce(moveDirection * 1000);
+        if (Input.GetKeyDown("left shift") && mainSM.coffeeAmount > 0)
+        {
+            mainSM.CoffeeUse(1);
+            rb.AddForce(moveDirection * 1000);
+        }
 
         SpeedControl();
 
@@ -105,6 +111,13 @@ public class PlayerMovement : MonoBehaviour
         if(other.tag == "Cheese")
         {
             mainSM.CheeseGain(1);
+            Destroy(other.gameObject);
+            
+        }
+        else if(other.tag == "Coffee")
+        {
+            mainSM.CoffeeGain(1);
+            Destroy(other.gameObject);
         }
     }
 }

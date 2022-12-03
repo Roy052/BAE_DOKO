@@ -7,24 +7,37 @@ public class MainSM : MonoBehaviour
 {
     [SerializeField] ObstacleGenerator og;
     [SerializeField] GameObject baelz;
-    [SerializeField] TextMeshProUGUI gameOverText, cheeseText;
+    [SerializeField] TextMeshProUGUI gameOverText, cheeseText, distanceText;
     int cheeseAmount = 0;
+    float distance = 0;
 
     bool gameEnd = false;
+
+    //Coffee
+    public int coffeeAmount = 0;
+    [SerializeField] GameObject[] coffeeCans;
     private void Start()
     {
         gameOverText.gameObject.SetActive(false);
         cheeseText.text = cheeseAmount + "";
+        CoffeeDisplay();
     }
 
     private void Update()
     {
-        if (gameEnd == false && baelz.transform.position.z >= 10)
+        if(gameEnd == false)
+        {
+            distanceText.text = distance.ToString("0") + " m";
+            distance += Time.deltaTime * 10;
+        }
+
+        if (gameEnd == false && (baelz.transform.position.z >= 10 || baelz.transform.position.y <= -5))
         {
             Destroy(baelz);
             GameEnd();
             Debug.Log("Game End");
         }
+        
     }
 
     public void GameEnd()
@@ -39,5 +52,28 @@ public class MainSM : MonoBehaviour
     {
         cheeseAmount += amount;
         cheeseText.text = cheeseAmount + "";
+    }
+
+    public void CoffeeGain(int amount)
+    {
+        coffeeAmount += amount;
+        if (coffeeAmount > 3) coffeeAmount = 3;
+        CoffeeDisplay();
+    }
+
+    public void CoffeeUse(int amount)
+    {
+        coffeeAmount -= amount;
+        if (coffeeAmount < 0) coffeeAmount = 0;
+        CoffeeDisplay();
+    }
+
+    void CoffeeDisplay()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            if (i + 1 > coffeeAmount) coffeeCans[i].SetActive(false);
+            else coffeeCans[i].SetActive(true);
+        }
     }
 }
