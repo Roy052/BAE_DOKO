@@ -80,6 +80,7 @@ else if(!grounded)
 <div>
     <h4> SpeedControl 함수 </h4>
 </div>
+    
 ```csharp
 private void SpeedControl()
 {
