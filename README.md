@@ -9,6 +9,7 @@
   </div>
     <div>
     <h2> 게임 플레이 영상 </h2>
+        https://youtu.be/143Z2OslR9s
   </div>
   <div>
     <h2> 배운 점 </h2>
