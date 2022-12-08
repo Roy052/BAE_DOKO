@@ -12,15 +12,19 @@ public class ObstacleGenerator : MonoBehaviour
     List<GameObject> obstacles;
     GameObject cheeseTemp;
     GameObject coffeeTemp;
-    
+
     int nextObjectNum = 0;
     int obstacleCount = 0, cheeseCoffeeCount = 45;
     bool obstacleStop = false;
     float moveSpeed = 2f;
+
+    //Probability
+    int[] obstaclePercentage = new int[3] { 45, 90, 100 };
+    int cheeseCoffeeGenMin = 10, cheeseCoffeeGenMax = 25;
     void Start()
     {
         obstacles = new List<GameObject>();
-        cheeseCoffeeCount = Random.Range(30, 45);
+        cheeseCoffeeCount = Random.Range(cheeseCoffeeGenMin, cheeseCoffeeGenMax);
     }
 
     void Update()
@@ -49,9 +53,12 @@ public class ObstacleGenerator : MonoBehaviour
                     temp = Instantiate(coffeePrefab,
                         new Vector3(Random.Range(-6.1f, 6.1f), Random.Range(1, 3), -20), Quaternion.identity);
                     temp.GetComponent<Coffee>().moveSpeed = moveSpeed;
+                    Quaternion tempQuat = temp.transform.rotation;
+                    tempQuat = Quaternion.Euler(-90, 0, 0);
+                    temp.transform.rotation = tempQuat;
                     coffeeTemp = temp;
                 }
-                cheeseCoffeeCount = Random.Range(30, 45);
+                cheeseCoffeeCount = Random.Range(cheeseCoffeeGenMin, cheeseCoffeeGenMax);
                 obstacleCount = 0;
             }
             else
@@ -72,7 +79,15 @@ public class ObstacleGenerator : MonoBehaviour
                 }
                     
             }
-            nextObjectNum = Random.Range(0, obstaclePrefabs.Length);
+            int tempObstacleNum = Random.Range(0, 101);
+            for(int i = 0; i < obstaclePercentage.Length; i++)
+            {
+                if (tempObstacleNum < obstaclePercentage[i])
+                {
+                    nextObjectNum = i;
+                    break;
+                }
+            }
             
         }
         moveSpeed += Time.deltaTime / 10;
