@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,5 +17,15 @@ public class GameManager : MonoBehaviour
     {
         if (cheeseAmount + amount > 0)
             cheeseAmount = cheeseAmount + amount;
+    }
+
+    public static void Retry()
+    {
+        SceneManager.LoadScene("Main");
+    }
+
+    public static void ToMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

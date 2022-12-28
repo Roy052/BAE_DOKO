@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class MainSM : MonoBehaviour
@@ -16,8 +17,16 @@ public class MainSM : MonoBehaviour
     //Coffee
     public int coffeeAmount = 0;
     [SerializeField] GameObject[] coffeeCans;
+
+    //ResultUI
+    [SerializeField] Image resultBox;
+    [SerializeField] TextMeshProUGUI distanceCountText, cheeseCountText, scoreCountText;
+
+    GameManager gm;
     private void Start()
     {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        ResultOff();
         gameOverText.gameObject.SetActive(false);
         cheeseText.text = cheeseAmount + "";
         CoffeeDisplay();
@@ -46,6 +55,7 @@ public class MainSM : MonoBehaviour
         og.GameEnd();
         gameOverText.gameObject.SetActive(true);
         StartCoroutine(FadeManager.FadeIn(gameOverText, 1));
+        Invoke("ResultOn", 1);
     }
 
     public void CheeseGain(int amount)
@@ -76,4 +86,29 @@ public class MainSM : MonoBehaviour
             else coffeeCans[i].SetActive(true);
         }
     }
+
+    public void ResultOn()
+    {
+        distanceCountText.text = distance.ToString("0");
+        cheeseCountText.text = cheeseAmount.ToString();
+        scoreCountText.text = ((int)distance + cheeseAmount * 100).ToString();
+        resultBox.gameObject.SetActive(true);
+    }
+
+    public void ResultOff()
+    {
+        resultBox.gameObject.SetActive(false);
+    }
+
+    public void ToMenu()
+    {
+        GameManager.ToMenu();
+    }
+
+    public void Retry()
+    {
+        GameManager.Retry();
+    }
+
+    
 }

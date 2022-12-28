@@ -20,7 +20,7 @@ public class ObstacleGenerator : MonoBehaviour
 
     //Probability
     int[] obstaclePercentage = new int[3] { 45, 90, 100 };
-    int cheeseCoffeeGenMin = 10, cheeseCoffeeGenMax = 25;
+    int cheeseCoffeeGenMin = 4, cheeseCoffeeGenMax = 10;
     void Start()
     {
         obstacles = new List<GameObject>();

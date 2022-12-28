@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown("left shift") && mainSM.coffeeAmount > 0)
         {
             mainSM.CoffeeUse(1);
-            rb.AddForce(moveDirection * 1000);
+            rb.AddForce(moveDirection * 1500);
         }
 
         SpeedControl();
