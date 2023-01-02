@@ -28,4 +28,9 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
     }
+
+    public static void RunStart()
+    {
+        SceneManager.LoadScene("Main");
+    }
 }

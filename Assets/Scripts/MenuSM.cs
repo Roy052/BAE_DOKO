@@ -4,15 +4,40 @@ using UnityEngine;
 
 public class MenuSM : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    GameManager gm;
+
+    private void Start()
     {
-        
+        //gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RunStart()
     {
-        
+        GameManager.RunStart();
+    }
+
+    public void UpgradeOn()
+    {
+
+    }
+
+    public void UpgradeOff()
+    {
+
+    }
+
+    public void SettingOn()
+    {
+
+    }
+
+    public void SettingOff()
+    {
+
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

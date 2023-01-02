@@ -14,7 +14,7 @@ public class ObstacleGenerator : MonoBehaviour
     GameObject coffeeTemp;
 
     int nextObjectNum = 0;
-    int obstacleCount = 0, cheeseCoffeeCount = 45;
+    int obstacleCount = 0, bigObstacleCount = 5, bigObstacleNum = 2, cheeseCoffeeCount = 45;
     bool obstacleStop = false;
     float moveSpeed = 2f;
 
@@ -67,17 +67,20 @@ public class ObstacleGenerator : MonoBehaviour
                 obstacles.Add(temp);
                 temp.GetComponent<Obstacle>().og = this;
                 temp.GetComponent<Obstacle>().moveSpeed = moveSpeed;
+
                 if (temp.tag == "Pad")
                 {
                     Vector3 tempVector = temp.transform.position;
                     tempVector.y = -1;
                     temp.transform.position = tempVector;
-
-                    Quaternion tempQuat = temp.transform.rotation;
-                    tempQuat = Quaternion.Euler(0, 0, -50);
-                    temp.transform.rotation = tempQuat;
                 }
-                    
+                Quaternion tempQuat = temp.transform.rotation;
+
+                if (temp.tag == "Pad")
+                    tempQuat = Quaternion.Euler(0, Random.Range(-180, 180), -50);
+                else
+                    tempQuat = Quaternion.Euler(Random.Range(-180, 180), Random.Range(-180, 180), tempQuat.eulerAngles.z);
+                temp.transform.rotation = tempQuat;
             }
             int tempObstacleNum = Random.Range(0, 101);
             for(int i = 0; i < obstaclePercentage.Length; i++)
