@@ -28,7 +28,7 @@ public class MainSM : MonoBehaviour
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         ResultOff();
         gameOverText.gameObject.SetActive(false);
-        cheeseText.text = cheeseAmount + "";
+        cheeseText.text = 0 + "";
         CoffeeDisplay();
     }
 
@@ -93,6 +93,8 @@ public class MainSM : MonoBehaviour
         cheeseCountText.text = cheeseAmount.ToString();
         scoreCountText.text = ((int)distance + cheeseAmount * 100).ToString();
         resultBox.gameObject.SetActive(true);
+        gm.CheeseUpdate(cheeseAmount);
+        gm.SaveData();
     }
 
     public void ResultOff()
