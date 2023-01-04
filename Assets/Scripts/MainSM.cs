@@ -23,9 +23,14 @@ public class MainSM : MonoBehaviour
     [SerializeField] TextMeshProUGUI distanceCountText, cheeseCountText, scoreCountText;
 
     GameManager gm;
+    public int[] upgradeArray;
     private void Start()
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        upgradeArray = new int[5];
+        for(int i = 0; i < 5; i++)
+            upgradeArray[i] = gm.GetUpgradeValue(i);
+
         ResultOff();
         gameOverText.gameObject.SetActive(false);
         cheeseText.text = 0 + "";

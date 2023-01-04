@@ -28,10 +28,16 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] MainSM mainSM;
 
+    //Boost
+    public float boostForce;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        moveSpeed += 5 * (mainSM.upgradeArray[0] * 0.1f);
+        boostForce += 1500 * (mainSM.upgradeArray[1] * 0.1f);
+        jumpForce += 5 * (mainSM.upgradeArray[2] * 0.1f);
     }
 
     private void Update()
@@ -60,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown("left shift") && mainSM.coffeeAmount > 0)
         {
             mainSM.CoffeeUse(1);
-            rb.AddForce(moveDirection * 1500);
+            rb.AddForce(moveDirection * boostForce);
         }
 
         SpeedControl();

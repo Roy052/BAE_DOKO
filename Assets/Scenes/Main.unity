@@ -1050,6 +1050,7 @@ MonoBehaviour:
   distanceCountText: {fileID: 1685020806}
   cheeseCountText: {fileID: 1073215185}
   scoreCountText: {fileID: 1256087784}
+  upgradeArray: 
 --- !u!4 &631834744
 Transform:
   m_ObjectHideFlags: 0
@@ -2031,6 +2032,7 @@ MonoBehaviour:
   jumpCooldown: 0.25
   airMultiplier: 0.5
   mainSM: {fileID: 631834743}
+  boostForce: 1500
 --- !u!54 &1201321416
 Rigidbody:
   m_ObjectHideFlags: 0
